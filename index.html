@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALTEA - Alianza de Transición Energética Argentina</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-fade-in-left {
+            animation: fadeInLeft 0.8s ease-out forwards;
+        }
+
+        .animate-fade-in-right {
+            animation: fadeInRight 0.8s ease-out forwards;
+        }
+
+        .animate-scale-in {
+            animation: scaleIn 0.6s ease-out forwards;
+        }
+
+        .animate-slide-in-down {
+            animation: slideInDown 0.8s ease-out forwards;
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-600 { animation-delay: 0.6s; }
+
+        .opacity-0 { opacity: 0; }
+
+        .card {
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05) translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .btn-hover {
+            transition: all 0.3s ease;
+        }
+
+        .btn-hover:hover {
+            transform: scale(1.05);
+        }
+
+        .floating-icon {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+        .lang-selector {
+            position: relative;
+        }
+
+        .lang-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            min-width: 120px;
+        }
+
+        .lang-dropdown.show {
+            display: block;
+        }
+
+        .lang-option {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .lang-option:hover {
+            background-color: #f3f4f6;
+        }
+
+        .lang-option.active {
+            background-color: #dcfce7;
+            color: #16a34a;
+        }
+
+        [data-lang]:not([data-lang="es"]) {
+            display: none;
+        }
+
+        html[lang="en"] [data-lang]:not([data-lang="en"]) {
+            display: none;
+        }
+
+        html[lang="en"] [data-lang="en"] {
+            display: block;
+        }
+
+        html[lang="es"] [data-lang="es"] {
+            display: block;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+    <!-- Header -->
+    <header class="px-4 lg:px-6 h-16 flex items-center backdrop-blur-sm bg-white/80 border-b border-green-100 fixed w-full top-0 z-50">
+        <div class="flex items-center justify-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center">
+                    <i data-lucide="leaf" class="h-5 w-5 text-white"></i>
+                </div>
+                <span class="font-bold text-xl text-gray-800">ALTEA</span>
+            </div>
+        </div>
+        <nav class="ml-auto flex gap-4 sm:gap-6 items-center">
+            <a href="#contacto" class="text-sm font-medium hover:text-green-600 transition-colors">
+                <span data-lang="es">Contacto</span>
+                <span data-lang="en">Contact</span>
+            </a>
+            
+            <!-- Language Selector -->
+            <div class="lang-selector">
+                <button id="lang-toggle" class="flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-green-600 transition-colors">
+                    <i data-lucide="globe" class="h-4 w-4"></i>
+                    <span id="current-lang">ESP</span>
+                    <i data-lucide="chevron-down" class="h-3 w-3"></i>
+                </button>
+                <div id="lang-dropdown" class="lang-dropdown">
+                    <div class="lang-option active" data-lang-code="es">
+                        <span class="font-medium">ESP</span>
+                        <span class="text-xs text-gray-500 block">Español</span>
+                    </div>
+                    <div class="lang-option" data-lang-code="en">
+                        <span class="font-medium">ENG</span>
+                        <span class="text-xs text-gray-500 block">English</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-1 pt-10">
+        <!-- Hero Section -->
+        <section class="w-full py-12 md:py-24 lg:py-32 xl:py-48 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-green-600/10 to-blue-600/10" ></div>
+            <div class="container mx-auto px-4 md:px-6 relative z-10">
+                <div class="flex flex-col items-center space-y-8 text-center">
+                    <div class="bg-white/80 text-green-700 border border-green-200 px-4 py-2 rounded-full text-sm font-medium opacity-0 animate-slide-in-down">
+                        <span data-lang="es">🚧 Sitio en Construcción</span>
+                        <span data-lang="en">🚧 Site Under Construction</span>
+                    </div>
+
+                    <div class="space-y-12 max-w-4xl">
+                        <h1 class="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-gray-800 opacity-0 animate-fade-in-up delay-200 mb-8">
+                            <span data-lang="es" >
+                                Alianza Argentina para
+                                <span class="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent block">
+                                    la Transición Energética
+                                    <span class="nbsp;"><br />&nbsp;</span>
+                                </span>
+                            </span>
+                            <span data-lang="en" >
+                                Argentine Alliance for
+                                <span class="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent block">
+                                    the Energy Transition
+                                    <span class="nbsp;"><br />&nbsp;</span>
+                                </span>
+                            </span>
+                        </h1>
+
+                        <p class="text-lg md:text-xl font-normal text-gray-600 max-w-3xl mx-auto leading-relaxed opacity-0 animate-fade-in-up delay-400 mt-12">
+                            <span data-lang="es">Estamos trabajando en algo nuevo...</span>
+                            <span data-lang="en">Something new is on the way...</span>
+                        </p>
+
+                        <p class="mx-auto max-w-2xl text-gray-600 md:text-lg leading-relaxed opacity-0 animate-fade-in-up delay-500">
+                            <span data-lang="es">
+                                La plataforma de la Alianza Argentina para la Transición Energética está en desarrollo. Muy pronto, será el punto de encuentro para ideas, acciones y alianzas que impulsan un futuro energético más limpio, justo y sostenible para nuestro país.
+                            </span>
+                            <span data-lang="en">
+                                We are developing the platform of the Argentine Alliance for the Energy Transition. Very soon, it will become the meeting place for ideas, actions, and partnerships driving a cleaner, fairer, and more sustainable energy future for our country.
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 mt-8 opacity-0 animate-fade-in-up delay-600">
+                        <!--<button class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-8 py-3 rounded-lg font-medium btn-hover flex items-center justify-center">
+                            <i data-lucide="mail" class="mr-2 h-5 w-5"></i>
+                            <span data-lang="es">Mantente Informado</span>
+                            <span data-lang="en">Stay Informed</span>
+                        </button> 
+                        <button class="border border-green-600 text-green-700 hover:bg-green-50 px-8 py-3 rounded-lg font-medium btn-hover">
+                            <span data-lang="es">Conoce Más</span>
+                            <span data-lang="en">Learn More</span>
+                        </button>-->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Icons -->
+            <div class="absolute top-20 left-10 floating-icon">
+                <i data-lucide="wind" class="h-16 w-16 text-green-500"></i>
+            </div>
+            <div class="absolute top-32 right-16 floating-icon">
+                <i data-lucide="sun" class="h-20 w-20 text-yellow-500"></i>
+            </div>
+            <div class="absolute bottom-20 left-20 floating-icon">
+                <i data-lucide="zap" class="h-12 w-12 text-blue-500"></i>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="w-full py-16 md:py-24 bg-gradient-to-r from-green-600 to-blue-600">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="text-center text-white">
+                    <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+                        <span data-lang="es">Únete a la Transformación</span>
+                        <span data-lang="en">Join the Transformation</span>
+                    </h2>
+                    <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+                        <span data-lang="es">
+                            Se vienen novedades, lo que viene te va a inspirar.
+                        </span>
+                        <span data-lang="en">
+                           Exciting things are coming, what’s coming will inspire you
+                        </span>
+                    </p>
+
+                    <div class="max-w-md mx-auto">
+                        <form class="flex gap-2 mb-4">
+                            <input
+                                type="email"
+                                id="email-input"
+                                class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/70 focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50"
+                            />
+                            <button type="submit" class="bg-white text-green-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-medium transition-colors">
+                                <span data-lang="es">Suscribirse</span>
+                                <span data-lang="en">Subscribe</span>
+                            </button>
+                        </form>
+                        <p class="text-sm opacity-80">
+                            <span data-lang="es">Seguinos de cerca… lo mejor está por empezar.</span>
+                            <span data-lang="en">Stay tuned… the best is yet to come.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contacto" class="w-full py-16 bg-white">
+            <div class="container mx-auto px-4 md:px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl text-gray-800 mb-4">
+                        <span data-lang="es">Próximamente</span>
+                        <span data-lang="en">Coming Soon</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                        <span data-lang="es">
+                            Estamos trabajando para lanzar oficialmente nuestra plataforma. Mientras tanto, puedes contactarnos para
+                            más información.
+                        </span>
+                        <span data-lang="en">
+                            We are working to officially launch our platform. In the meantime, you can contact us for
+                            more information.
+                        </span>
+                    </p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-8 justify-center items-center">
+                    <div class="flex items-center gap-3 text-gray-600">
+                        <i data-lucide="mail" class="h-5 w-5 text-green-600"></i>
+                        <span>info@transicionargentina.org.ar</span>
+                        <i data-lucide="map-pin" class="h-5 w-5 text-green-600"></i>
+                        <span>Buenos Aires, Argentina</span>
+                    </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-gray-600" style="background-color: #2d2d2d;">
+        <p class="text-xs text-white">
+            © <span id="current-year"></span> 
+            <span data-lang="es"><strong>Alianza Argentina para la Transición Energética.</strong> Todos los derechos reservados.</span>
+            <span data-lang="en"><strong>Argentine Alliance for Energy Transition.</strong> All rights reserved.</span>
+            
+        </p>
+        <nav class="sm:ml-auto flex gap-4 sm:gap-6">
+            <a href="#" class="text-xs hover:underline underline-offset-4 text-gray-300 hover:text-white transition-colors">
+                <span data-lang="es">Términos de Servicio</span>
+                <span data-lang="en">Terms of Service</span>
+            </a>
+            <a href="#" class="text-xs hover:underline underline-offset-4 text-gray-300 hover:text-white transition-colors">
+                <span data-lang="es">Privacidad</span>
+                <span data-lang="en">Privacy</span>
+            </a>
+        </nav>
+    </footer>
+
+    <script>
+        // Language system
+        const translations = {
+            es: {
+                emailPlaceholder: "Tu email"
+            },
+            en: {
+                emailPlaceholder: "Your email"
+            }
+        };
+
+        let currentLang = 'es';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            
+            // Update email placeholder
+            const emailInput = document.getElementById('email-input');
+            if (emailInput) {
+                emailInput.placeholder = translations[lang].emailPlaceholder;
+            }
+            
+            // Update language selector
+            const currentLangSpan = document.getElementById('current-lang');
+            const langOptions = document.querySelectorAll('.lang-option');
+            
+            currentLangSpan.textContent = lang.toUpperCase();
+            
+            langOptions.forEach(option => {
+                option.classList.remove('active');
+                if (option.dataset.langCode === lang) {
+                    option.classList.add('active');
+                }
+            });
+            
+            // Close dropdown
+            document.getElementById('lang-dropdown').classList.remove('show');
+            
+            // Save preference
+            localStorage.setItem('preferred-language', lang);
+        }
+
+        // Initialize language system
+        function initLanguage() {
+            const savedLang = localStorage.getItem('preferred-language') || 'es';
+            switchLanguage(savedLang);
+        }
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Set current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Initialize language
+        initLanguage();
+
+        // Language selector events
+        document.getElementById('lang-toggle').addEventListener('click', function(e) {
+            e.stopPropagation();
+            const dropdown = document.getElementById('lang-dropdown');
+            dropdown.classList.toggle('show');
+        });
+
+        document.querySelectorAll('.lang-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const lang = this.dataset.langCode;
+                switchLanguage(lang);
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function() {
+            document.getElementById('lang-dropdown').classList.remove('show');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission handler
+        document.querySelector('form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = this.querySelector('input[type="email"]').value;
+            const submitButton = this.querySelector('button[type="submit"]');
+            
+            if (!email) {
+                const message = currentLang === 'es' 
+                    ? 'Por favor ingresa un email válido'
+                    : 'Please enter a valid email';
+                alert(message);
+                return;
+            }
+            
+            // Deshabilitar botón durante el envío
+            submitButton.disabled = true;
+            submitButton.innerHTML = currentLang === 'es' ? 'Enviando...' : 'Sending...';
+            
+            try {
+                const response = await fetch('process_subscription.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        language: currentLang
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('a'+result.message);
+                    this.reset(); // Limpiar formulario
+                } else {
+                    alert(result.message);
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                const message = currentLang === 'es'
+                    ? 'Error de conexión. Inténtalo más tarde.'
+                    : 'Connection error. Please try again later.';
+                alert(message);
+            } finally {
+                // Rehabilitar botón
+                submitButton.disabled = false;
+                submitButton.innerHTML = currentLang === 'es' ? 'Suscribirse' : 'Subscribe';
+            }
+        });
+
+        // Intersection Observer for scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for scroll animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.opacity-0');
+            animatedElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
