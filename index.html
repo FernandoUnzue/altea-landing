@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ALTEA - Alianza de Transición Energética Argentina</title>
+    
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
+    <link rel="shortcut icon" href="favicon_io/favicon.ico">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -180,9 +188,7 @@
     <header class="px-4 lg:px-6 h-16 flex items-center backdrop-blur-sm bg-white/80 border-b border-green-100 fixed w-full top-0 z-50">
         <div class="flex items-center justify-center">
             <div class="flex items-center space-x-2">
-                <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center">
-                    <i data-lucide="leaf" class="h-5 w-5 text-white"></i>
-                </div>
+                <img src="images/iso-altea.png" alt="ALTEA Logo" width="34" height="34" class="object-contain" />
                 <span class="font-bold text-xl text-gray-800">ALTEA</span>
             </div>
         </div>
@@ -215,13 +221,56 @@
 
     <main class="flex-1 pt-10">
         <!-- Hero Section -->
-        <section class="w-full py-12 md:py-24 lg:py-32 xl:py-48 relative overflow-hidden">
+        <section class="w-full py-8 md:py-16 lg:py-20 xl:py-24 relative overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-r from-green-600/10 to-blue-600/10" ></div>
             <div class="container mx-auto px-4 md:px-6 relative z-10">
                 <div class="flex flex-col items-center space-y-8 text-center">
                     <div class="bg-white/80 text-green-700 border border-green-200 px-4 py-2 rounded-full text-sm font-medium opacity-0 animate-slide-in-down">
                         <span data-lang="es">🚧 Sitio en Construcción</span>
                         <span data-lang="en">🚧 Site Under Construction</span>
+                    </div>
+
+                    <!-- Countdown Timer -->
+                    <div class="bg-white/90 text-gray-800 border border-green-200 px-6 py-4 rounded-xl shadow-lg opacity-0 animate-fade-in-up delay-300">
+                        <div class="text-center">
+                            <p class="text-sm font-medium mb-3 text-green-700">
+                                <span data-lang="es">🚀 Lanzamiento estimado: 15 de Septiembre</span>
+                                <span data-lang="en">🚀 Estimated Launch: September 15th</span>
+                            </p>
+                            <div id="countdown" class="flex justify-center gap-4 text-2xl font-bold">
+                                <div class="text-center">
+                                    <div id="days" class="text-green-600">00</div>
+                                    <div class="text-xs font-normal text-gray-500">
+                                        <span data-lang="es">Días</span>
+                                        <span data-lang="en">Days</span>
+                                    </div>
+                                </div>
+                                <div class="text-green-600">:</div>
+                                <div class="text-center">
+                                    <div id="hours" class="text-green-600">00</div>
+                                    <div class="text-xs font-normal text-gray-500">
+                                        <span data-lang="es">Horas</span>
+                                        <span data-lang="en">Hours</span>
+                                    </div>
+                                </div>
+                                <div class="text-green-600">:</div>
+                                <div class="text-center">
+                                    <div id="minutes" class="text-green-600">00</div>
+                                    <div class="text-xs font-normal text-gray-500">
+                                        <span data-lang="es">Min</span>
+                                        <span data-lang="en">Min</span>
+                                    </div>
+                                </div>
+                                <div class="text-green-600">:</div>
+                                <div class="text-center">
+                                    <div id="seconds" class="text-green-600">00</div>
+                                    <div class="text-xs font-normal text-gray-500">
+                                        <span data-lang="es">Seg</span>
+                                        <span data-lang="en">Sec</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="space-y-12 max-w-4xl">
@@ -363,14 +412,6 @@
                 <span data-lang="es"><strong>Alianza Argentina para la Transición Energética.</strong> Todos los derechos reservados.</span>
                 <span data-lang="en"><strong>Argentine Alliance for Energy Transition.</strong> All rights reserved.</span>
             </p>
-            <!-- Capstone Logo -->
-            <div class="flex items-center gap-2">
-                <span class="text-xs text-gray-300">
-                    <span data-lang="es">Desarrollado por</span>
-                    <span data-lang="en">Developed by</span>
-                </span>
-                <img src="images/capstone-log.png" alt="Capstone" class="h-8 opacity-80 hover:opacity-100 transition-opacity" />
-            </div>
         </div>
         <nav class="sm:ml-auto flex gap-4 sm:gap-6">
             <a href="#" class="text-xs hover:underline underline-offset-4 text-gray-300 hover:text-white transition-colors">
@@ -382,6 +423,14 @@
                 <span data-lang="en">Privacy</span>
             </a>
         </nav>
+              <!-- Capstone Logo -->
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-gray-300">
+                    <span data-lang="es">Desarrollado por</span>
+                    <span data-lang="en">Developed by</span>
+                </span>
+                <a href="https://capstoneside.com"><img src="images/Capstone_White.png" alt="Capstone" class="h-8 opacity-80 hover:opacity-100 transition-opacity" /></a>
+            </div>
     </footer>
 
     <script>
@@ -435,6 +484,36 @@
 
         // Initialize Lucide icons
         lucide.createIcons();
+        
+        // Countdown Timer
+        function updateCountdown() {
+            // Fecha objetivo: 15 de septiembre de 2025 a las 00:00:00
+            const targetDate = new Date('2025-09-15T00:00:00-03:00').getTime(); // Hora Argentina (UTC-3)
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+            
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            } else {
+                // Si ya pasó la fecha, mostrar ceros
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+            }
+        }
+        
+        // Actualizar el countdown cada segundo
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
         
         // Set current year
         document.getElementById('current-year').textContent = new Date().getFullYear();
